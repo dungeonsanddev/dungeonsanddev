@@ -1,5 +1,7 @@
 # NextJS FullStack Starter
 
+https://beta.tldraw.com/r/v2_c_OpNLi_vVT1EEIU89o4HyL
+
 A starter for NextJS fullstack projects with all you need to start your side project or your dream. Do your thing.
 
 ## Features
