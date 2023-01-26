@@ -9,7 +9,10 @@ module.exports = {
   ],
   theme: {
     extend: {
-      fontFamily: { sans: ['Inter', ...defaultTheme.fontFamily.sans] },
+      fontFamily: {
+        sans: ['Inter', ...defaultTheme.fontFamily.sans],
+        cartridge: ["Cartridge"],
+      },
       fontSize: {
         front: '10rem',
       },
