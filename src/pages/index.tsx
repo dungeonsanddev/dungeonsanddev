@@ -17,8 +17,8 @@ const IndexPage = () => {
       {posts.data?.map((item) => (
         <article key={item.id} className="my-4">
           <h3 className="font-bold text-lg">{item.title}</h3>
-          <Link href={`/post/${item.id}`}>
-            <a className="underline">Read more {'->'} </a>
+          <Link href={`/post/${item.id}`} className="underline">
+            Read more {'->'}
           </Link>
         </article>
       ))}

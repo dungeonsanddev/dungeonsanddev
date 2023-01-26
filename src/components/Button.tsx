@@ -44,18 +44,17 @@ export const Button = ({
 
   if (href) {
     return (
-      <Link href={href}>
-        <a
-          className={classNames(
-            classes[variant],
-            'w-full text-center block',
-            className,
-          )}
-          {...props}
-        >
-          {loading && <Loading />}
-          {children}
-        </a>
+      <Link
+        href={href}
+        className={classNames(
+          classes[variant],
+          'w-full text-center block',
+          className,
+        )}
+        {...props}
+      >
+        {loading && <Loading />}
+        {children}
       </Link>
     );
   }

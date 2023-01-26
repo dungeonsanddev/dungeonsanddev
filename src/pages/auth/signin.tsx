@@ -56,10 +56,11 @@ function SignIn() {
       <Button variant="secondary" className="mt-6" href="/auth/signup">
         Sign Up
       </Button>
-      <Link href="/auth/forgot-password">
-        <a className="block mt-2 text-center text-opacity-50 hover:text-opacity-100 text-white disabled:opacity-50">
-          Forgot your password
-        </a>
+      <Link
+        href="/auth/forgot-password"
+        className="block mt-2 text-center text-opacity-50 hover:text-opacity-100 text-white disabled:opacity-50"
+      >
+        Forgot your password
       </Link>
     </>
   );

@@ -7,14 +7,14 @@ export const Header = () => {
     <header>
       <ul className="flex gap-4 max-w-[80%] w-7xl mx-auto">
         <li>
-          <Link href="/">
-            <a className="underline">Home</a>
+          <Link href="/" className="underline">
+            Home
           </Link>
         </li>
         {session?.user ? (
           <>
-            <Link href="/create-post">
-              <a className="underline">Create Post</a>
+            <Link href="/create-post" className="underline">
+              Create Post
             </Link>
             <button
               onClick={() =>
@@ -29,8 +29,8 @@ export const Header = () => {
             </button>
           </>
         ) : (
-          <Link href="/auth/signin">
-            <a className="underline">Sign In</a>
+          <Link href="/auth/signin" className="underline">
+            Sign In
           </Link>
         )}
       </ul>

@@ -1,7 +1,7 @@
 import { trpc } from '../trpc';
 
 export const usePosts = () => {
-  const postsQuery = trpc.useQuery(['post.all']);
+  const postsQuery = trpc.post.all.useQuery();
 
   // prefetch all posts for instant navigation
   // useEffect(() => {
@@ -15,9 +15,9 @@ export const usePosts = () => {
 
 export const useCreatePost = () => {
   const utils = trpc.useContext();
-  const addPost = trpc.useMutation('post.add', {
+  const addPost = trpc.post.add.useMutation({
     async onSuccess() {
-      await utils.invalidateQueries(['post.all']);
+      await utils.post.all.invalidate();
     },
   });
 
@@ -25,7 +25,7 @@ export const useCreatePost = () => {
 };
 
 export const usePost = ({ id }) => {
-  const postQuery = trpc.useQuery(['post.byId', { id }]);
+  const postQuery = trpc.post.byId.useQuery({ id });
 
   return postQuery;
 };
