@@ -174,7 +174,7 @@ export const useResetPassword = create(
         if (!data.ok) {
           set({ error: data.message || 'Something went wrong!' });
         } else {
-          router.push('/signin?state=' + STATES.PASSWORD_UPDATED);
+          router.push('/auth/signin?state=' + STATES.PASSWORD_UPDATED);
         }
       } catch {
       } finally {

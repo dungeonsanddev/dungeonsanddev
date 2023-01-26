@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
-    @apply bg-slate-900 text-gray-50
+  @apply bg-grass text-gray-50;
 }

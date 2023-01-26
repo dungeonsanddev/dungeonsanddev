@@ -3,28 +3,20 @@ import { usePosts } from '~/utils/hooks/usePosts';
 
 const IndexPage = () => {
   const posts = usePosts();
-  console.log(posts);
   return (
-    <>
-      <h2 className="text-center pb-8 font-bold text-3xl">
-        Welcome to the next full stack starter!
-      </h2>
-
-      <h3 className="text-xl font-bold py-4">
-        Posts
-        {posts.isLoading && '(loading)'}
-      </h3>
-      {posts.data?.items?.map((item) => (
-        <article key={item.id} className="my-4">
-          <h3 className="font-bold text-lg">{item.title}</h3>
-          <Link href={`/post/${item.id}`} className="underline">
-            Read more {'->'}
-          </Link>
-        </article>
+    <section className="h-screen w-screen flex items-center justify-center">
+      <h1 className="text-front tracking-tighter text-white">
+        Dungeons and Devs
+      </h1>
+      {Array.from({ length: 45 }, (_, i) => (
+        <img className="absolute" key={i} alt="Tree" src="/images/tree.png" />
       ))}
-    </>
+      <img alt="Stone" src="/images/stone.png" />
+    </section>
   );
 };
+
+// const Tree = () => {};
 
 export default IndexPage;
 

@@ -1,7 +1,7 @@
 import NextAuth from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import CredentialsProvider from 'next-auth/providers/credentials';
-
+import GitHubProvider from "next-auth/providers/github";
 import { prisma } from '~/server/prisma';
 import { verifyPassword } from '~/utils/password';
 import { NewSession } from '~/utils/types';
@@ -23,6 +23,7 @@ export default NextAuth({
   },
   providers: [
     CredentialsProvider({
+      // @ts-ignore
       async authorize(
         credentials: Record<'email' | 'password', string> | undefined,
       ) {
@@ -41,7 +42,7 @@ export default NextAuth({
 
         const isValid = await verifyPassword(
           credentials.password,
-          user.password,
+          user.password as string,
         );
 
         if (!isValid) {
@@ -59,6 +60,10 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' },
       },
     }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_ID as string,
+      clientSecret: process.env.GITHUB_SECRET as string
+    })
   ],
   session: {
     // Choose how you want to save the user session.

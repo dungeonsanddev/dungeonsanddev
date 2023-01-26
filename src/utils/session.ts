@@ -11,20 +11,29 @@ import { NewSession } from './types';
 
 const signInRedirect = {
   redirect: {
-    destination: '/signin',
+    destination: '/auth/signin',
     permanent: false,
   },
 };
 
+const homeRedirect = {
+  redirect: {
+    destination: '/',
+    permanent: false,
+  },
+}
+
 function validateSession({
   session,
   redirectCondition,
+  redirect,
 }: {
   session: NewSession;
   redirectCondition: any;
+  redirect: any;
 }) {
   if (redirectCondition) {
-    return signInRedirect;
+    return redirect;
   }
 
   return { props: { session } };
@@ -37,7 +46,7 @@ export const redirectIfAuthenticated = async (
   context: GetServerSidePropsContext,
 ) => {
   const session = (await getSession(context)) as NewSession;
-  return validateSession({ session, redirectCondition: session });
+  return validateSession({ session, redirectCondition: session, redirect: homeRedirect });
 };
 
 /**
@@ -52,6 +61,7 @@ export const validateUserSession = async (
   return validateSession({
     session,
     redirectCondition: !session,
+    redirect: signInRedirect
   });
 };
 
