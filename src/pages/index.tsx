@@ -3,7 +3,7 @@ import { usePosts } from '~/utils/hooks/usePosts';
 
 const IndexPage = () => {
   const posts = usePosts();
-
+  console.log(posts);
   return (
     <>
       <h2 className="text-center pb-8 font-bold text-3xl">
@@ -14,7 +14,7 @@ const IndexPage = () => {
         Posts
         {posts.isLoading && '(loading)'}
       </h3>
-      {posts.data?.map((item) => (
+      {posts.data?.items?.map((item) => (
         <article key={item.id} className="my-4">
           <h3 className="font-bold text-lg">{item.title}</h3>
           <Link href={`/post/${item.id}`} className="underline">

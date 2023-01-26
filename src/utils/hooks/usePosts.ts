@@ -1,7 +1,8 @@
 import { trpc } from '../trpc';
 
 export const usePosts = () => {
-  const postsQuery = trpc.post.all.useQuery();
+  const postsQuery = trpc.post.all.useQuery({});
+
 
   // prefetch all posts for instant navigation
   // useEffect(() => {

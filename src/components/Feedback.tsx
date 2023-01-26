@@ -1,5 +1,8 @@
-import { XCircleIcon } from '@heroicons/react/outline';
-import { CheckCircleIcon, ExclamationIcon } from '@heroicons/react/solid';
+import {
+  CheckCircleIcon,
+  ExclamationTriangleIcon as ExclamationIcon,
+  XCircleIcon,
+} from '@heroicons/react/24/solid';
 import classNames from 'classnames';
 
 type Props = {
