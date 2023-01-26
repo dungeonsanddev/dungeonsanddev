@@ -1,22 +1,59 @@
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 import { usePosts } from '~/utils/hooks/usePosts';
 
 const IndexPage = () => {
   const posts = usePosts();
   return (
-    <section className="h-screen w-screen flex items-center justify-center">
-      <h1 className="text-front tracking-tighter text-white">
+    <section className="flex items-center justify-center w-screen h-screen">
+      <h1 className="tracking-tighter text-white font-cartridge text-front">
         Dungeons and Devs
       </h1>
-      {Array.from({ length: 45 }, (_, i) => (
-        <img className="absolute" key={i} alt="Tree" src="/images/tree.png" />
+      {Array.from({ length: 500 }, (_, i) => (
+        <>
+          <Sprite key={i} path="/images/tree.png" />
+        </>
       ))}
-      <img alt="Stone" src="/images/stone.png" />
+      {Array.from({ length: 20 }, (_, i) => (
+        <>
+          <Sprite key={i} path="/images/stone.png" />
+        </>
+      ))}
+      {Array.from({ length: 3 }, (_, i) => (
+        <Sprite key={i} path="/images/foliage.png" />
+      ))}
+      {Array.from({ length: 3 }, (_, i) => (
+        <Sprite key={i} path="/images/statue.png" />
+      ))}
+      {Array.from({ length: 3 }, (_, i) => (
+        <Sprite style={{ zIndex: -11 }} key={i} path="/images/pond.png" />
+      ))}
     </section>
   );
 };
 
-// const Tree = () => {};
+const Sprite = ({ path, ...props }: { path: string }) => {
+  const [[width, height], setWindowSize] = useState([0, 0]);
+  useEffect(() => {
+    setWindowSize([window.innerWidth, window.innerHeight]);
+  }, []);
+
+  return (
+    <img
+      style={{
+        top: `${getRandomNumber(height)}px`,
+        left: `${getRandomNumber(width)}px`,
+        ...props.style,
+      }}
+      className={`absolute -z-10`}
+      alt="Tree"
+      src={path}
+    />
+  );
+};
+
+const getRandomNumber = (max: number, min = 0) =>
+  min + Math.random() * (max - min);
 
 export default IndexPage;
 
