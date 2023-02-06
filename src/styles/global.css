@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply bg-grass text-gray-50;
+  @apply text-neutral-600;
 }
 
 @font-face {
