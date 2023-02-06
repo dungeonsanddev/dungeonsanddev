@@ -10,6 +10,9 @@ const CoursesPage = () => {
       {(courses || []).map((course: Course) => (
         <div key={course.id}>
           <h3>{course.name}</h3>
+          <small className="capitalize">
+            {course.category.toLocaleLowerCase()}
+          </small>
           <div className="flex items-start gap-4">
             <img
               className="shrink-0"

@@ -3,6 +3,12 @@ import { PrismaClient, CATEGORY } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
+  const exists = await prisma.course.findUnique({
+    where: {
+      slug: 'best-course',
+    },
+  });
+  if (exists?.id) return;
   await prisma.course.create({
     data: {
       name: 'This is the best course',

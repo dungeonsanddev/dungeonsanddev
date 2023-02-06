@@ -15,39 +15,26 @@ export const courseRouter = router({
     });
     return items;
   }),
-  byId: publicProcedure
+  bySlug: publicProcedure
     .input(
       z.object({
-        id: z.string(),
+        slug: z.string(),
       }),
     )
     .query(async ({ input }) => {
-      const { id } = input;
-      const post = await prisma.post.findUnique({
-        where: { id },
-        select: defaultPostSelect,
+      const { slug } = input;
+      const post = await prisma.course.findUnique({
+        where: { slug },
+        include: {
+          author: true,
+        },
       });
       if (!post) {
         throw new TRPCError({
           code: 'NOT_FOUND',
-          message: `No post with id '${id}'`,
+          message: `No course with id '${slug}'`,
         });
       }
-      return post;
-    }),
-  add: publicProcedure
-    .input(
-      z.object({
-        id: z.string().uuid().optional(),
-        title: z.string().min(1).max(32),
-        text: z.string().min(1),
-      }),
-    )
-    .mutation(async ({ input }) => {
-      const post = await prisma.post.create({
-        data: input,
-        select: defaultPostSelect,
-      });
       return post;
     }),
 });
