@@ -32,16 +32,16 @@ model Author {
 }
 
 model Course {
-  id          String   @id @default(uuid())
+  id          String       @id @default(uuid())
   name        String
-  slug        String   @unique
+  slug        String       @unique
   description String
   media       String
   category    CATEGORY
-  author      Author   @relation(fields: [authorId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @default(now()) @updatedAt
-  User        User[]
+  author      Author       @relation(fields: [authorId], references: [id])
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now()) @updatedAt
+  UserCourse  UserCourse[]
   authorId    String
   language    String
 }
@@ -77,14 +77,25 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String       @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?      @unique
   password      String?
   emailVerified DateTime?
   resetToken    String?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  courses       Course[]
+  courses       UserCourse[]
+}
+
+model UserCourse {
+  id           String    @id @default(cuid())
+  user         User      @relation(fields: [userId], references: [id])
+  userId       String
+  course       Course    @relation(fields: [courseId], references: [id])
+  courseId     String
+  startedDate  DateTime  @default(now())
+  progress     Int?      @default(0)
+  finishedDate DateTime?
 }
