@@ -1,9 +1,6 @@
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { usePosts } from '~/utils/hooks/usePosts';
 
 const IndexPage = () => {
-  const posts = usePosts();
   return (
     <section className="flex items-center justify-center w-screen h-screen">
       <h1 className="tracking-tighter text-white font-cartridge text-front">

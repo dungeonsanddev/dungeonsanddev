@@ -1,18 +1,6 @@
 import { trpc } from '../trpc';
 
-export const usePosts = () => {
-  const postsQuery = trpc.post.all.useQuery({});
-
-
-  // prefetch all posts for instant navigation
-  // useEffect(() => {
-  //   for (const { id } of postsQuery.data ?? []) {
-  //     utils.prefetchQuery(['post.byId', { id }]);
-  //   }
-  // }, [postsQuery.data, utils]);
-
-  return postsQuery;
-};
+export const useCourses = () => trpc.course.all.useQuery({});
 
 export const useCreatePost = () => {
   const utils = trpc.useContext();
