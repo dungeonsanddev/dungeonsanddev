@@ -2,29 +2,44 @@ import { useEffect, useState } from 'react';
 
 const IndexPage = () => {
   return (
-    <section className="flex items-center justify-center w-screen h-screen">
-      <h1 className="tracking-tighter text-white font-cartridge text-front">
-        Dungeons and Devs
-      </h1>
-      {Array.from({ length: 500 }, (_, i) => (
-        <>
-          <Sprite key={i} path="/images/tree.png" />
-        </>
-      ))}
-      {Array.from({ length: 20 }, (_, i) => (
-        <>
-          <Sprite key={i} path="/images/stone.png" />
-        </>
-      ))}
-      {Array.from({ length: 3 }, (_, i) => (
-        <Sprite key={i} path="/images/foliage.png" />
-      ))}
-      {Array.from({ length: 3 }, (_, i) => (
-        <Sprite key={i} path="/images/statue.png" />
-      ))}
-      {Array.from({ length: 3 }, (_, i) => (
-        <Sprite style={{ zIndex: -11 }} key={i} path="/images/pond.png" />
-      ))}
+    <section className="flex flex-col items-center justify-center w-screen h-screen gap-12 p-4 overflow-hidden">
+      <div className="flex flex-col justify-center gap-4 text-center">
+        <h1 className="md:max-w-[1280px] lg:max-w-[600px] xl:max-w-none mx-auto leading-none tracking-tighter text-white text-7xl font-cartridge md:text-front">
+          Dungeons and Devs
+        </h1>
+        <h2 className="text-3xl leading-none tracking-normal md:text-5xl font-cartridge">
+          Embark on a magical learning quest of HTML.
+        </h2>
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <button className="p-2 px-4 text-xl leading-none transition transform border-4 rounded shadow-xl hover:scale-110 outline-4 outline outline-solid outline-white font-cartridge border-lime-700 bg-lime-600">
+          Sign up
+        </button>
+        <button className="p-2 px-4 text-xl leading-none transition transform border-4 rounded shadow-xl hover:scale-110 outline-4 outline outline-white font-cartridge border-lime-700 bg-lime-600">
+          Login
+        </button>
+      </div>
+      <div className="absolute top-0 left-0 w-screen h-screen overflow-hidden -z-10">
+        {Array.from({ length: 500 }, (_, i) => (
+          <>
+            <Sprite key={i} path="/images/tree.png" />
+          </>
+        ))}
+        {Array.from({ length: 20 }, (_, i) => (
+          <>
+            <Sprite key={i} path="/images/stone.png" />
+          </>
+        ))}
+        {Array.from({ length: 3 }, (_, i) => (
+          <Sprite key={i} path="/images/foliage.png" />
+        ))}
+        {Array.from({ length: 3 }, (_, i) => (
+          <Sprite key={i} path="/images/statue.png" />
+        ))}
+        {Array.from({ length: 3 }, (_, i) => (
+          <Sprite style={{ zIndex: -11 }} key={i} path="/images/pond.png" />
+        ))}
+      </div>
     </section>
   );
 };
