@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import NextAuth, { AuthOptions } from 'next-auth';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GitHubProvider from "next-auth/providers/github";
@@ -6,7 +6,7 @@ import { prisma } from '~/server/prisma';
 import { verifyPassword } from '~/utils/password';
 import { NewSession } from '~/utils/types';
 
-export default NextAuth({
+export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   callbacks: {
     async session({ session }: { session: NewSession }): Promise<NewSession> {
@@ -82,4 +82,6 @@ export default NextAuth({
     // Note: This option is ignored if using JSON Web Tokens
     updateAge: 24 * 60 * 60, // 24 hours
   },
-});
+}
+
+export default NextAuth(authOptions);

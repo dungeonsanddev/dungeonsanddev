@@ -1,25 +1,33 @@
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { signIn, useSession } from 'next-auth/react';
+import { H1 } from '~/components/H1';
 
 const IndexPage = () => {
+  const session = useSession();
+  const router = useRouter();
+
   return (
-    <section className="flex flex-col items-center justify-center w-screen h-screen gap-12 p-4 overflow-hidden">
+    <section className="flex flex-col items-center justify-center w-screen h-screen gap-12 p-4 overflow-hidden text-gray-50">
       <div className="flex flex-col justify-center gap-4 text-center">
-        <h1 className="md:max-w-[1280px] lg:max-w-[600px] xl:max-w-none mx-auto leading-none tracking-tighter text-white text-7xl font-cartridge md:text-front">
+        <H1 className="md:max-w-[1280px] lg:max-w-[600px] xl:max-w-none mx-auto">
           Dungeons and Devs
-        </h1>
+        </H1>
         <h2 className="text-3xl leading-none tracking-normal md:text-5xl font-cartridge">
           Embark on a magical learning quest of HTML.
         </h2>
       </div>
       <div className="grid grid-cols-2 gap-4">
-        <button className="p-2 px-4 text-xl leading-none transition transform border-4 rounded shadow-xl hover:scale-110 outline-4 outline outline-solid outline-white font-cartridge border-lime-700 bg-lime-600">
-          Sign up
-        </button>
-        <button className="p-2 px-4 text-xl leading-none transition transform border-4 rounded shadow-xl hover:scale-110 outline-4 outline outline-white font-cartridge border-lime-700 bg-lime-600">
-          Login
+        <button
+          onClick={() => {
+            session ? router.push('/app') : signIn();
+          }}
+          className="p-2 px-4 text-xl leading-none transition transform border-4 rounded shadow-xl hover:scale-110 outline-4 outline outline-solid outline-white font-cartridge border-lime-700 bg-lime-600"
+        >
+          Get Started
         </button>
       </div>
-      <div className="absolute top-0 left-0 w-screen h-screen overflow-hidden -z-10">
+      <div className="absolute top-0 left-0 w-screen h-screen overflow-hidden bg-grass -z-10">
         {Array.from({ length: 500 }, (_, i) => (
           <>
             <Sprite key={i} path="/images/tree.png" />

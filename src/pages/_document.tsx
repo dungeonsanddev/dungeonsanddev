@@ -10,7 +10,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
         </Head>
-        <body>
+        <body className="font-cartridge">
           <Main />
           <NextScript />
         </body>
