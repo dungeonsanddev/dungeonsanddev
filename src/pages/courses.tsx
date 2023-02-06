@@ -1,6 +1,7 @@
 import { Course } from '@prisma/client';
 import { useCourses } from '~/utils/hooks/useCourses';
 import ReactMarkdown from 'react-markdown';
+import Link from 'next/link';
 
 const CoursesPage = () => {
   const { data: courses } = useCourses();
@@ -24,6 +25,7 @@ const CoursesPage = () => {
               <ReactMarkdown>{course.description}</ReactMarkdown>
             </div>
           </div>
+          <Link href={`course/${course.slug}`}>Go to course {'->'}</Link>
         </div>
       ))}
     </div>
