@@ -37,7 +37,7 @@ const IndexPage = () => {
           <Sprite key={i} path="/images/statue.png" />
         ))}
         {Array.from({ length: 3 }, (_, i) => (
-          <Sprite style={{ zIndex: -11 }} key={i} path="/images/pond.png" />
+          <Sprite key={i} path="/images/pond.png" />
         ))}
       </div>
     </section>
@@ -55,7 +55,6 @@ const Sprite = ({ path, ...props }: { path: string }) => {
       style={{
         top: `${getRandomNumber(height)}px`,
         left: `${getRandomNumber(width)}px`,
-        ...props.style,
       }}
       className={`absolute -z-10`}
       alt="Tree"
