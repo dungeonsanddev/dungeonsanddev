@@ -1,22 +1,12 @@
 import { prisma } from '~/server/prisma';
-import { getLessons } from '~/utils/getLessons';
+import { getAllPaths, getLesson, getLessons } from '~/utils/lessons-api';
 
 const Course = ({ lessons }) => {
   return <pre>{JSON.stringify(lessons, null, 2)}</pre>;
 };
 
-export async function getStaticProps({ params }) {
-  console.log(params);
-  return getLessons({ slug: params.slug });
-}
+export const getStaticProps = async ({ params }) =>
+  getLesson({ slug: params.slug, lessonSlug: params.slug_lesson });
 
-export async function getStaticPaths(params) {
-  console.log(params);
-  const paths = await getLessons({ slug: params.slug });
-  return {
-    paths: paths.props.lessons.map((p) => ({ params: { slug: p.data.slug } })),
-    fallback: false, // can also be true or 'blocking'
-  };
-}
-
+export const getStaticPaths = () => getAllPaths();
 export default Course;
