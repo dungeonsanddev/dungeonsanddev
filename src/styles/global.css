@@ -6,6 +6,13 @@ body {
   @apply text-neutral-600;
 }
 
+progress[value]::-webkit-progress-bar {
+  @apply bg-neutral-200;
+}
+progress[value]::-webkit-progress-value {
+  @apply bg-grass;
+}
+
 @font-face {
   font-family: 'Cartridge';
   font-weight: bold;
