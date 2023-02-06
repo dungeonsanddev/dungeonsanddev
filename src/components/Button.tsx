@@ -12,7 +12,7 @@ type Props = {
 const Loading = () => (
   <svg
     role="status"
-    className="inline mr-2 w-4 h-4 text-gray-200 animate-spin"
+    className="inline w-4 h-4 mr-2 text-gray-200 animate-spin"
     viewBox="0 0 100 101"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +38,8 @@ export const Button = ({
 }: Props) => {
   const disabled = props.disabled || loading;
   const classes = {
-    primary: 'bg-red-600 rounded-md h-[48px] disabled:opacity-50',
+    primary:
+      'bg-grass transform transition hover:scale-105 active:scale-100 text-white rounded-md h-[48px] disabled:opacity-50',
     secondary: 'text-red-600 rounded-md h-[48px] disabled:opacity-50',
   };
 
