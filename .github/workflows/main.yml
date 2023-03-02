@@ -22,6 +22,9 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
 
       # - name: Install deps and build (with cache)
       #   uses: bahmutov/npm-install@v1
