@@ -20,7 +20,7 @@ const IndexPage = () => {
       <div className="grid grid-cols-2 gap-4">
         <button
           onClick={() => {
-            session ? router.push('/app') : signIn();
+            signIn('github', { callbackUrl: '/app' });
           }}
           className="p-2 px-4 text-xl leading-none transition transform border-4 rounded shadow-xl hover:scale-110 outline-4 outline outline-solid outline-white font-cartridge border-lime-700 bg-lime-600"
         >
