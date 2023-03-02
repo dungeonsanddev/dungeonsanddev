@@ -12,21 +12,22 @@ import { authOptions } from '../api/auth/[...nextauth]';
 type Props = {
   user: User;
   userCourses: (UserCourse & { course: Course })[];
+  recommendedCourses: Course[];
 };
 
-const App: FC<Props> = ({ user, userCourses }) => {
-  if (!userCourses) {
-    return null;
-  }
+const App: FC<Props> = ({ user, userCourses, recommendedCourses }) => {
+  const courses = userCourses?.length ? userCourses : recommendedCourses;
 
   return (
     <div className="grid max-w-screen-lg gap-8 py-8 mx-auto">
       <H1>Hey there, {user?.name?.split(' ')[0]}!</H1>
       <p className="text-4xl">
-        Here are your courses that you&apos;ve signed up for.
+        {userCourses?.length > 0
+          ? "Here are your courses that you've signed up for."
+          : "You haven't yet signed up for any courses. Here are some we recommend!"}
       </p>
       <div className="grid grid-cols-4 gap-4">
-        {userCourses.map((userCourse) => (
+        {courses?.map((userCourse) => (
           <div key={userCourse.id} className="border border-gray-200 rounded">
             <div
               className="bg-cover aspect-square w-[200px] border-b border-gray-200"
@@ -35,12 +36,16 @@ const App: FC<Props> = ({ user, userCourses }) => {
             <div className="grid gap-4 p-4">
               <div className="grid gap-2">
                 <h2 className="text-2xl">{userCourse.course.name}</h2>
-                <span>Started on {formatDate(userCourse.startedDate)}</span>
-                <progress
-                  className="w-full h-2 overflow-hidden rounded bg-neutral-200"
-                  max={100}
-                  value={userCourse.progress || 0}
-                />
+                {userCourse.startedDate && (
+                  <>
+                    <span>Started on {formatDate(userCourse.startedDate)}</span>
+                    <progress
+                      className="w-full h-2 overflow-hidden rounded bg-neutral-200"
+                      max={100}
+                      value={userCourse.progress || 0}
+                    />
+                  </>
+                )}
               </div>
               <Button>Dive in!</Button>
             </div>
@@ -58,7 +63,6 @@ export const getServerSideProps = async (ctx) => {
     return {
       redirect: {
         destination: '/?e=unauthd',
-        permanent: false,
         statusCode: 302,
       },
     };
@@ -76,10 +80,19 @@ export const getServerSideProps = async (ctx) => {
 
   const userCourses = serialize(rawUserCourses).json;
 
+  const recommendedCourses = await prisma.course.findMany({
+    where: { id: { notIn: rawUserCourses.map((c) => c.course.id) } },
+    select: { id: true, name: true, media: true },
+    take: 5,
+  });
+
   return {
     props: {
       user: session.user,
       userCourses,
+      recommendedCourses: serialize(
+        recommendedCourses.map((c) => ({ course: c })),
+      ).json,
     },
   };
 };

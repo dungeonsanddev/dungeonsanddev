@@ -1,12 +1,8 @@
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { signIn, useSession } from 'next-auth/react';
-import { H1 } from '~/components/H1';
+import { signIn } from 'next-auth/react';
 import { useLDtk } from '~/utils/hooks/useLDtk';
 
 const IndexPage = () => {
-  const session = useSession();
-  const router = useRouter();
   const levels = useLDtk({
     sprite: '/images/Modern_Exteriors_Complete_Tileset_32x32.png',
     ldtk: '/images/dungeons_devs.ldtk',
@@ -30,7 +26,7 @@ const IndexPage = () => {
           </div>
           <button
             onClick={() => {
-              session ? router.push('/app') : signIn();
+              signIn('github', { callbackUrl: '/app' });
             }}
             className="p-2 px-4 text-xl leading-none transition transform border-4 rounded shadow-xl hover:scale-110 outline-4 outline outline-solid outline-white font-cartridge border-lime-700 mt-12 bg-lime-600"
           >
