@@ -15,10 +15,7 @@ const IndexPage = () => {
   return (
     <section className="w-screen h-screen overflow-hidden text-gray-50">
       <div className="absolute flex flex-col justify-center gap-4 text-center z-10 w-screen h-screen">
-        {/* <H1 className="md:max-w-[1280px] lg:max-w-[600px] xl:max-w-none mx-auto">
-          Dungeons and Devs
-        </H1>
-        <h2 className="text-3xl leading-none tracking-normal md:text-5xl font-cartridge">
+        {/* <h2 className="text-3xl leading-none tracking-normal md:text-5xl font-cartridge">
           Embark on a magical learning quest of HTML.
         </h2> */}
         <section className="header">
