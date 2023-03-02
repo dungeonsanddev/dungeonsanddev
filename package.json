@@ -45,6 +45,7 @@
     "classnames": "^2.3.2",
     "clsx": "^1.2.1",
     "gray-matter": "^4.0.3",
+    "ldtk": "^0.8.7",
     "lodash-es": "^4.17.21",
     "next": "^13.1.5",
     "next-auth": "^4.19.2",

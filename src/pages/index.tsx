@@ -2,52 +2,73 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { H1 } from '~/components/H1';
+import { useLDtk } from '~/utils/hooks/useLDtk';
 
 const IndexPage = () => {
   const session = useSession();
   const router = useRouter();
+  const levels = useLDtk({
+    sprite: '/images/Modern_Exteriors_Complete_Tileset_32x32.png',
+    ldtk: '/images/dungeons_devs.ldtk',
+  });
 
   return (
-    <section className="flex flex-col items-center justify-center w-screen h-screen gap-12 p-4 overflow-hidden text-gray-50">
-      <div className="flex flex-col justify-center gap-4 text-center">
-        <H1 className="md:max-w-[1280px] lg:max-w-[600px] xl:max-w-none mx-auto">
+    <section className="w-screen h-screen overflow-hidden text-gray-50">
+      <div className="absolute flex flex-col justify-center gap-4 text-center z-10 w-screen h-screen">
+        {/* <H1 className="md:max-w-[1280px] lg:max-w-[600px] xl:max-w-none mx-auto">
           Dungeons and Devs
         </H1>
         <h2 className="text-3xl leading-none tracking-normal md:text-5xl font-cartridge">
           Embark on a magical learning quest of HTML.
-        </h2>
+        </h2> */}
+        <section className="header">
+          <div className="title-wrapper">
+            <h1 className="sweet-title">
+              <span data-text="Dungeons">Dungeons</span>
+              <span className="ampersdand" data-text="&">
+                &
+              </span>
+              <span data-text="Dev">Dev</span>
+            </h1>
+          </div>
+          <button
+            onClick={() => {
+              session ? router.push('/app') : signIn();
+            }}
+            className="p-2 px-4 text-xl leading-none transition transform border-4 rounded shadow-xl hover:scale-110 outline-4 outline outline-solid outline-white font-cartridge border-lime-700 mt-12 bg-lime-600"
+          >
+            Get Started
+          </button>
+        </section>
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        <button
-          onClick={() => {
-            session ? router.push('/app') : signIn();
+
+      {levels ? (
+        <div
+          style={{
+            background: '#479757',
+            width: '100vw',
+            height: '100vh',
           }}
-          className="p-2 px-4 text-xl leading-none transition transform border-4 rounded shadow-xl hover:scale-110 outline-4 outline outline-solid outline-white font-cartridge border-lime-700 bg-lime-600"
         >
-          Get Started
-        </button>
-      </div>
-      <div className="absolute top-0 left-0 w-screen h-screen overflow-hidden bg-grass -z-10">
-        {Array.from({ length: 500 }, (_, i) => (
-          <>
-            <Sprite key={i} path="/images/tree.png" />
-          </>
-        ))}
-        {Array.from({ length: 20 }, (_, i) => (
-          <>
-            <Sprite key={i} path="/images/stone.png" />
-          </>
-        ))}
-        {Array.from({ length: 3 }, (_, i) => (
-          <Sprite key={i} path="/images/foliage.png" />
-        ))}
-        {Array.from({ length: 3 }, (_, i) => (
-          <Sprite key={i} path="/images/statue.png" />
-        ))}
-        {Array.from({ length: 3 }, (_, i) => (
-          <Sprite key={i} path="/images/pond.png" />
-        ))}
-      </div>
+          {levels.map((level) => (
+            <div
+              key={level.iid}
+              style={{
+                margin: 'auto',
+                ...level.style,
+              }}
+            >
+              {level.layerInstances.map((layer) => (
+                <div style={layer.style} key={layer.iid}>
+                  {layer.gridTiles.map((tile, i) => (
+                    <div key={i} style={tile.style}></div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      ) : null}
     </section>
   );
 };
