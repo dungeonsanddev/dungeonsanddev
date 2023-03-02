@@ -1,22 +1,52 @@
-import { getLessons } from '~/utils/lessons-api';
-import { prisma } from '~/server/prisma';
+import { GetServerSideProps } from 'next';
+import { getServerSession, User } from 'next-auth';
+import { FC } from 'react';
+import { authOptions } from '~/pages/api/auth/[...nextauth]';
+import { getLesson, getLessons, Lesson } from '~/utils/lessons-api';
+import LessonPage from './[lessonSlug]';
 
-const Lesson = ({ lessons }) => {
-  return <pre>{JSON.stringify(lessons, null, 2)}</pre>;
+type Props = {
+  lessons: Lesson[];
+  user: Omit<User, 'id'>;
+  courseSlug: string;
+  lesson: Lesson;
 };
 
-export const getStaticProps = async ({ params: { slug } }) =>
-  getLessons({ slug });
+const Lesson: FC<Props> = (props) => <LessonPage {...props} />;
 
-export const getStaticPaths = async () => {
-  const paths = await prisma.course.findMany({
-    select: {
-      slug: true,
-    },
+export const getServerSideProps: GetServerSideProps<Props> = async ({
+  params,
+  req,
+  res,
+}) => {
+  const { lessons } = await getLessons({ slug: params!.slug });
+  const { lesson } = await getLesson({
+    slug: params!.slug,
+    lessonSlug: lessons[0]?.data.slug,
   });
+  const session = await getServerSession(req, res, authOptions);
+
+  if (!lesson) {
+    return { notFound: true };
+  }
+
+  if (!session?.user) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
   return {
-    paths: paths.map((p) => ({ params: { slug: p.slug } })),
-    fallback: false, // can also be true or 'blocking'
+    props: {
+      courseSlug: params!.slug as string,
+      lessons,
+      lesson,
+      user: session?.user,
+    },
   };
 };
+
 export default Lesson;
