@@ -2337,11 +2337,6 @@ language-tags@=1.0.5:
   dependencies:
     language-subtag-registry "~0.3.2"
 
-ldtk@^0.8.7:
-  version "0.8.7"
-  resolved "https://registry.yarnpkg.com/ldtk/-/ldtk-0.8.7.tgz#2af62aff7fd223fa8671c3bf549bafb5a1ae7351"
-  integrity sha512-KSCLiA6ex2AYXrYNX+PBqDf3eCcWdCc+64OstFysQQhmIRa4RmF6ZEhh3vi+0KXFc4HzPjZQNaVKqkOFHfv6Xw==
-
 levn@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/levn/-/levn-0.4.1.tgz#ae4562c007473b932a6200d403268dd2fffc6ade"

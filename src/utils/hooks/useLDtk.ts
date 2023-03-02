@@ -1,15 +1,35 @@
-import { useEffect, useState } from 'react';
-import { World } from 'ldtk';
+import { CSSProperties, useEffect, useState } from 'react';
+
+type LevelType = {
+  style: CSSProperties;
+  iid: string;
+  pxWid: number;
+  pxHei: number;
+  __bgColor: string;
+  layerInstances: {
+    style: CSSProperties;
+    iid: string;
+    __gridSize: number;
+    gridTiles: {
+      style: CSSProperties;
+      src: [number, number];
+      px: [number, number];
+    }[];
+  }[];
+};
+
+type LDtk = LevelType[];
 
 export const useLDtk = ({ sprite, ldtk }) => {
-  const [world, setWorld] = useState<any>();
+  const [world, setWorld] = useState<LDtk>([]);
   useEffect(() => {
     getWorld();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getWorld = async () => {
-    const json = await (await fetch(ldtk)).json();
-    const world: World = json.levels.map((level) => ({
+    const json: { levels: LDtk } = await (await fetch(ldtk)).json();
+    const world = json.levels.map((level) => ({
       ...level,
       style: {
         width: level.pxWid,
@@ -17,18 +37,17 @@ export const useLDtk = ({ sprite, ldtk }) => {
         position: 'relative',
         background: level.__bgColor,
       },
-      layerInstances: (level.layerInstances || []).map((layer, i) => ({
+      layerInstances: level.layerInstances.map((layer, i) => ({
         ...layer,
         style: {
           position: 'absolute',
           width: '100%',
           height: '100%',
           overflow: 'hidden',
-          zIndex: (level.layerInstances || []).length - i,
+          zIndex: level.layerInstances.length - i,
         },
         gridTiles: layer.gridTiles.map((tile) => ({
           ...tile,
-
           style: {
             width: layer.__gridSize,
             height: layer.__gridSize,
@@ -43,7 +62,7 @@ export const useLDtk = ({ sprite, ldtk }) => {
         })),
       })),
     }));
-    setWorld(world);
+    setWorld(world as unknown as LDtk);
   };
 
   return world;

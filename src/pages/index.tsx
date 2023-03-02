@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import { signIn } from 'next-auth/react';
+import { FancyButton } from '~/components/FancyButton';
 import { useLDtk } from '~/utils/hooks/useLDtk';
 
 const IndexPage = () => {
@@ -14,24 +14,31 @@ const IndexPage = () => {
         {/* <h2 className="text-3xl leading-none tracking-normal md:text-5xl font-cartridge">
           Embark on a magical learning quest of HTML.
         </h2> */}
-        <section className="header">
-          <div className="title-wrapper">
-            <h1 className="sweet-title">
-              <span data-text="Dungeons">Dungeons</span>
-              <span className="ampersdand" data-text="&">
-                &
+        <section className="font-cartridge absolute top-1/2 left-1/2 z-20 -translate-y-1/2 -translate-x-1/2">
+          <div className="title-wrapper grid justify-center items-center -skew-y-12">
+            <h1 className="website-title order-2 font-black uppercase text-slate-100 text-center">
+              <span
+                className="block relative before:absolute before:z-[1]"
+                data-text="Dungeons"
+              >
+                Dungeons
               </span>
-              <span data-text="Dev">Dev</span>
+              <span
+                className=" block before:absolute before:z-[1] relative"
+                data-text="& Dev"
+              >
+                & Dev
+              </span>
             </h1>
           </div>
-          <button
+          <FancyButton
+            className="absolute left-1/2 mt-12 -translate-x-1/2"
             onClick={() => {
               signIn('github', { callbackUrl: '/app' });
             }}
-            className="p-2 px-4 text-xl leading-none transition transform border-4 rounded shadow-xl hover:scale-110 outline-4 outline outline-solid outline-white font-cartridge border-lime-700 mt-12 bg-lime-600"
           >
             Get Started
-          </button>
+          </FancyButton>
         </section>
       </div>
 
@@ -47,8 +54,8 @@ const IndexPage = () => {
             <div
               key={level.iid}
               style={{
-                margin: 'auto',
                 ...level.style,
+                margin: 'auto',
               }}
             >
               {level.layerInstances.map((layer) => (
@@ -65,28 +72,6 @@ const IndexPage = () => {
     </section>
   );
 };
-
-const Sprite = ({ path, ...props }: { path: string }) => {
-  const [[width, height], setWindowSize] = useState([0, 0]);
-  useEffect(() => {
-    setWindowSize([window.innerWidth, window.innerHeight]);
-  }, []);
-
-  return (
-    <img
-      style={{
-        top: `${getRandomNumber(height)}px`,
-        left: `${getRandomNumber(width)}px`,
-      }}
-      className={`absolute -z-10`}
-      alt="Tree"
-      src={path}
-    />
-  );
-};
-
-const getRandomNumber = (max: number, min = 0) =>
-  min + Math.random() * (max - min);
 
 export default IndexPage;
 
