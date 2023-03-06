@@ -49,7 +49,7 @@ export const LessonPage: FC<Props> = ({
                   <li key={lesson.title}>
                     <Link
                       className="block p-2 hover:bg-gray-200"
-                      href={`/courses/${courseSlug}/${lesson.data.slug}`}
+                      href={`/app/courses/${courseSlug}/${lesson.data.slug}`}
                     >
                       {lesson.title}
                     </Link>
