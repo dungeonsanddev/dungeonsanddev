@@ -1,13 +1,15 @@
 import { Course } from '@prisma/client';
 import { useCourses } from '~/utils/hooks/useCourses';
-import ReactMarkdown from 'react-markdown';
+
 import Link from 'next/link';
+import { DefaultLayout } from '~/components/Layout/Default';
+import { Markdown } from '~/components/Markdown';
 
 const CoursesPage = () => {
   const { data: courses } = useCourses();
   console.log(courses);
   return (
-    <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+    <DefaultLayout>
       {(courses || []).map((course: Course) => (
         <div key={course.id}>
           <h3>{course.name}</h3>
@@ -22,13 +24,13 @@ const CoursesPage = () => {
               width="200px"
             />
             <div>
-              <ReactMarkdown>{course.description}</ReactMarkdown>
+              <Markdown>{course.description}</Markdown>
             </div>
           </div>
           <Link href={`course/${course.slug}`}>Go to course {'->'}</Link>
         </div>
       ))}
-    </div>
+    </DefaultLayout>
   );
 };
 
