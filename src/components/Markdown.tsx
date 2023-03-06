@@ -57,6 +57,11 @@ export const Markdown = ({ children }) => {
         <code className={className} {...props} />
       );
     },
+    h1: (props) => <h1 className="text-6xl font-bold" {...props} />,
+    h2: (props) => <h2 className="mt-4 text-4xl font-bold" {...props} />,
+    h3: (props) => <h3 className="mt-4 text-2xl font-bold" {...props} />,
+    p: (props) => <p {...props} />,
+    ul: (props) => <ul className="ml-8 list-disc" {...props} />,
   };
   return (
     <ReactMarkdown components={MarkdownComponents}>{children}</ReactMarkdown>

@@ -4,8 +4,14 @@ import { prisma } from '~/server/prisma';
 import path from 'path';
 import matter from 'gray-matter';
 
+export type Lesson = {
+  title: string;
+  content: string;
+  data: Record<string, string>;
+}
+
 const readDir = async (slug?: string) => {
-  const lessons: any = [];
+  const lessons: Lesson[] = [];
   const dirPath = slug
     ? path.join(process.cwd(), 'data', slug)
     : path.join(process.cwd(), 'data');
@@ -32,18 +38,14 @@ const readDir = async (slug?: string) => {
 export const getLessons = async ({ slug }) => {
   const lessons = await readDir(slug);
   return {
-    props: {
-      lessons: lessons.reverse(),
-    },
+    lessons
   };
 };
 
 export const getLesson = async ({ slug, lessonSlug }) => {
   const lessons = await readDir(slug);
   return {
-    props: {
-      lessons: lessons.find((l) => l.data.slug === lessonSlug),
-    },
+    lesson: lessons.find((l) => l.data.slug === lessonSlug),
   };
 };
 
@@ -56,7 +58,7 @@ export const getAllPaths = async () => {
   const results = await Promise.all(
     paths.map(async (p: any) => {
       const lessons = await getLessons({ slug: p.slug });
-      return lessons.props.lessons.map((lesson) => ({
+      return lessons.lessons.map((lesson) => ({
         slug: p.slug,
         slug_lesson: lesson.data.slug,
       }));
