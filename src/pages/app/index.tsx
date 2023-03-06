@@ -33,6 +33,7 @@ const App: FC<Props> = ({ user, userCourses, recommendedCourses }) => {
             userCourse:
               | Props['userCourses'][-1]
               | Props['recommendedCourses'][-1],
+            index: number,
           ) => (
             <div key={userCourse.id} className="border border-gray-200 rounded">
               <div
@@ -55,9 +56,17 @@ const App: FC<Props> = ({ user, userCourses, recommendedCourses }) => {
                     </>
                   )}
                 </div>
-                <Link href={`/courses/${userCourse.course.slug}`}>
-                  <Button>Dive in!</Button>
-                </Link>
+                {userCourses[index] ? (
+                  <Link
+                    href={`/app/courses/${userCourses[index]!.course.slug}`}
+                  >
+                    <Button>Dive in!</Button>
+                  </Link>
+                ) : (
+                  <Link href={`/courses/${userCourse.course.slug}/buy`}>
+                    <Button>Buy Course</Button>
+                  </Link>
+                )}
               </div>
             </div>
           ),
@@ -85,7 +94,7 @@ export const getServerSideProps = async (ctx) => {
       startedDate: true,
       id: true,
       progress: true,
-      course: { select: { id: true, name: true, media: true } },
+      course: { select: { slug: true, id: true, name: true, media: true } },
     },
   });
 
