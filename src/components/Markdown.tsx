@@ -21,10 +21,10 @@ export const Markdown = ({ children }) => {
   const syntaxTheme = oneDark;
 
   const MarkdownComponents: object = {
-    code({ node, className, ...props }) {
+    code({ node, className, children }) {
       const match = /language-(\w+)/.exec(className || '');
       const hasMeta = node?.data?.meta;
-
+      const code = children.map((c) => c.slice(0, -1));
       const applyHighlights: object = (applyHighlights: number) => {
         if (hasMeta) {
           const RE = /{([\d,-]+)}/;
@@ -46,15 +46,15 @@ export const Markdown = ({ children }) => {
           style={syntaxTheme}
           language={match[1]}
           PreTag="div"
-          className="codeStyle"
           showLineNumbers={true}
           wrapLines={hasMeta ? true : false}
           useInlineStyles={true}
           lineProps={applyHighlights}
-          {...props}
-        />
+        >
+          {code}
+        </SyntaxHighlighter>
       ) : (
-        <code className={className} {...props} />
+        <code className="p-1 text-white bg-gray-900 rounded">{children}</code>
       );
     },
     h1: (props) => <h1 className="text-6xl font-bold" {...props} />,
