@@ -6,6 +6,7 @@ import ReactPlayer from 'react-player';
 import { authOptions } from '~/pages/api/auth/[...nextauth]';
 import { getLesson, getLessons, Lesson } from '~/utils/lessons-api';
 import { Markdown } from '~/components/Markdown';
+import PanelGroup from 'react-panelgroup';
 
 type Props = {
   lessons: Lesson[];
@@ -36,17 +37,20 @@ export const LessonPage: FC<Props> = ({
           {/* @todo add hover menu to logout */}
         </div>
       </header>
-      <div className="grid grid-cols-[1fr,4fr]">
-        <div className="grid grid-rows-[40px,auto,40px]">
-          <div className="flex items-center p-4 border-neutral-200">
-            Lessons
-          </div>
-          <div className="px-4">
+      <PanelGroup
+        borderColor="#0002"
+        panelWidths={[{ resize: 'dynamic' }, { resize: 'dynamic' }]}
+      >
+        <div className="w-full grid grid-rows-[auto,40px]">
+          <div>
             <nav>
-              <ul>
+              <ul className="striped">
                 {lessons.map((lesson) => (
                   <li key={lesson.title}>
-                    <Link href={`/courses/${courseSlug}/${lesson.data.slug}`}>
+                    <Link
+                      className="block p-2 hover:bg-gray-200"
+                      href={`/courses/${courseSlug}/${lesson.data.slug}`}
+                    >
                       {lesson.title}
                     </Link>
                   </li>
@@ -54,15 +58,19 @@ export const LessonPage: FC<Props> = ({
               </ul>
             </nav>
           </div>
-          <div className="flex items-center justify-center p-4 text-red-700 border-t border-neutral-200">
+          <Link
+            href="/app"
+            className="flex items-center justify-center p-4 text-red-700 border-t border-neutral-200"
+          >
             Leave
-          </div>
+          </Link>
         </div>
-        <div className="border-l border-neutral-200 grid grid-rows-[40px,auto,auto]">
-          <div className="flex items-center px-4 border-b border-neutral-200">
-            progress bar
-          </div>
-          <div className="flex items-center justify-center bg-black">
+        <PanelGroup
+          direction="column"
+          borderColor="#0002"
+          panelWidths={[{ resize: 'dynamic' }, { resize: 'dynamic' }]}
+        >
+          <div className="flex items-center justify-center w-full bg-black">
             <ReactPlayer
               autoPlay
               muted
@@ -71,11 +79,11 @@ export const LessonPage: FC<Props> = ({
               url={lesson?.data?.video ?? ''}
             />
           </div>
-          <div className="grid gap-4 p-4 text-lg leading-relaxed">
+          <div className="grid gap-4 p-4 overflow-auto text-lg leading-relaxed">
             <Markdown>{lesson?.content ?? ''}</Markdown>
           </div>
-        </div>
-      </div>
+        </PanelGroup>
+      </PanelGroup>
     </div>
   );
 };

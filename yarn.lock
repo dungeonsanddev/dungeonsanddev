@@ -373,6 +373,23 @@
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.5.tgz"
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
 
+"@types/react-panelgroup@^1.0.3":
+
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@types/react-panelgroup/-/react-panelgroup-1.0.3.tgz#5d8213eaa2195956125fff700c53a817adfb3a6c"
+  integrity sha512-kbZPG/NDnCrG7QuU99kfe3Ymkl9CJNDvEILKhFH7Rq+A/2kNvRzxFk2SWc8yZWpEqsXpEkIz74cWGOrm21w+uw==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*":
+  version "18.0.28"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.28.tgz#accaeb8b86f4908057ad629a26635fe641480065"
+  integrity sha512-RD0ivG1kEztNBdoAK7lekI9M+azSnitIn85h4iOiaLjaTrMjzslhaqCGaI4IyCJ1RljWiLCEu4jyrLLgqxBTew==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
 "@types/react@^18.0.27":
   version "18.0.27"
   resolved "https://registry.npmjs.org/@types/react/-/react-18.0.27.tgz"
@@ -3301,7 +3318,7 @@ prisma@^4.9.0:
   dependencies:
     "@prisma/engines" "4.9.0"
 
-prop-types@^15.0.0, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.0.0, prop-types@^15.6.1, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -3373,6 +3390,13 @@ react-markdown@^8.0.5:
     unified "^10.0.0"
     unist-util-visit "^4.0.0"
     vfile "^5.0.0"
+
+react-panelgroup@^1.0.12:
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/react-panelgroup/-/react-panelgroup-1.0.12.tgz#e19c2d9d1fa4fbe504cdac9255eebc1c569c08f4"
+  integrity sha512-DuA+6TnxLK1TmlQqijYCbzvEVZYS3i6SyG9xqk7SW/S4pzzIxQ73lkSHLkMBG55/iOvGQEL/uH3Y96btk6mPDw==
+  dependencies:
+    prop-types "^15.6.1"
 
 react-player@^2.11.2:
   version "2.11.2"
