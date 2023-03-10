@@ -10,8 +10,8 @@ const CoursesPage = () => {
   return (
     <DefaultLayout>
       <div className="flex flex-col gap-12 items-start">
-        {(courses || []).map((course: CourseWithAuthor, i: number) => (
-          <CourseInList course={course} i={i} key={course.id} />
+        {(courses || []).map((course: CourseWithAuthor, index: number) => (
+          <CourseInList course={course} index={index} key={course.id} />
         ))}
       </div>
     </DefaultLayout>

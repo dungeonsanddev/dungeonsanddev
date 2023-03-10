@@ -7,17 +7,17 @@ import Link from 'next/link';
 
 export const CourseInList = ({
   course,
-  i,
+  index,
 }: {
   course: CourseWithAuthor;
-  i: number;
+  index: number;
 }) => {
   return (
     <div
       key={course.id}
       className={clsx(
         'max-w-3xl mx-auto flex flex-col',
-        i % 4 ? ' items-end' : 'items-start',
+        index % 4 ? ' items-end' : 'items-start',
       )}
     >
       <H1 className="font-cartdrige font-bold">{course.name}</H1>
@@ -30,13 +30,13 @@ export const CourseInList = ({
           {course.author.name}
         </Link>
       </p>
-      <span className="inline-flex items-center rounded-full my-2 bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800">
-        {course.category.toLocaleLowerCase()}
+      <span className="inline-flex items-center rounded-full my-2 bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 lowercase">
+        {course.category}
       </span>
       <div
         className={clsx(
           'mt-8 flex items-start gap-8',
-          i % 4 && 'flex-row-reverse ',
+          index % 4 && 'flex-row-reverse ',
         )}
       >
         <div className="grow shrink-0">
