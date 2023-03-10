@@ -102,7 +102,7 @@ Once the data model is defined, you can [generate Prisma Client](https://www.pri
 
 The first step when using Prisma Client is installing its npm package:
 
-```
+```bash
 npm install @prisma/client
 ```
 

@@ -1,4 +1,5 @@
 import { PrismaClient, CATEGORY } from '@prisma/client';
+import { json } from 'stream/consumers';
 
 const prisma = new PrismaClient();
 
@@ -15,9 +16,8 @@ async function main() {
       slug: 'best-course',
       media:
         'https://upload.wikimedia.org/wikipedia/en/2/2d/SSU_Kirby_artwork.png',
-      description: `# Respondit dato
-
-## Efficiens Baucis
+      description: `
+### Efficiens Baucis
 
 Lorem markdownum igne usum et adire huius consequiturque trepida puniceum
 parabat tamen; ardua! Nova regni vacant. Petiti poscimur: ictu coniunx, coniuge,
@@ -25,7 +25,7 @@ et est **absens committi** protinus levis vel credite poteras dixit. Est sorores
 tigno moderamine agros: tenui, lymphis ex omnes Iovem Echidnae late, quod licet,
 poenam.
 
-## Pallet qui regno inmanemque
+### Pallet qui regno inmanemque
 
 Est deserit saxa, mihi **atque ignarus quae** illa respiciens; placet, ego
 mundus. Suffusus non, deus aptius conchis ferrum et motumque viris [ferunt
@@ -34,7 +34,7 @@ dumque. Et lapides et et deferre et stamine; in resupinoque velox Thebis super,
 habenas scelerate. Aonios amatam! *Bellum gemino Atlantide* unam anus his
 defensore tacito in legi Achaia prima, liquidarum *a*.
 
-## Qui potero forsitan ramis vosne omnia et
+### Qui potero forsitan ramis vosne omnia et
 
 Ityosque corpus, nec formae confinia iamque, vina cum, iter et conspicuus
 Athenas nempe; erroribus inferna et? Iustis genitore natat frena. Vocem plena
@@ -45,7 +45,7 @@ clauditur.
 - Oculos prima visi laedere ipsi Iove fervida
 - Dapes tergo haec Theseus thalamos Cnosius Ilion
 
-## Admonuisse non fertur et nec auspiciis triste
+### Admonuisse non fertur et nec auspiciis triste
 
 Quid resurgebant vidisti colla Tydidae veni: ortus ante pedes: erat: populo et
 canebat labore audebatis genitor, pectus. Annos toros, in ille aut loqueretur
@@ -53,23 +53,9 @@ iubent **rapta**, gaudet! Et ante [unguibus](http://www.coniuge.io/) mittere,
 iussorum vitiaverat vobis placato. Occupat dixit. Est mora [tres Achaemenide
 campi](http://sum.net/quinta.html).
 
-    if (qbe) {
-        syn_inkjet_caps.record.wireless_panel_file(user_speakers_boot -
-                myspacePpc, irq, deprecated);
-    } else {
-        disk_imap_tutorial.offline += alpha_bandwidth(technology, win(5, dropC,
-                southbridgeDimmCifs));
-        yobibyte_forum_box += 3;
-    }
-    scarewareOptical = opengl;
-    if (bmpSourceEup) {
-        domain_wireless_mac = aluBar;
-    } else {
-        ad_pup.schema_server = mysql_publishing;
-        eupScroll.jquery(rpc, ipv_windows + ansiMonitor);
-    }
-    telecommunications_ocr_commerce(cd_cloud);
-    var soft_output_ddr = zip_tcp + mode + 5;
+\`\`\`js
+console.log("sup")
+\`\`\`
 
 Avidos fit videntem Cadmi. Novissima quod iam consumitis, est dux imitataque
 materiam [induta](http://pariterque.com/esse-quod.html) vitisque: carbasa
