@@ -25,13 +25,17 @@ const readDir = async (slug?: string) => {
         .toLocaleString();
       const { content, data } = matter(file);
       lessons.push({
-        title: entry.name,
+        title: data.title,
         content,
         data,
       });
     }
   }
 
+  lessons.sort((a, b) => {
+    // @ts-expect-error
+    return a.data.order - b.data.order
+  });
   return lessons;
 };
 

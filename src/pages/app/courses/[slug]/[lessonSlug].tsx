@@ -6,13 +6,16 @@ import ReactPlayer from 'react-player';
 import { authOptions } from '~/pages/api/auth/[...nextauth]';
 import { getLesson, getLessons, Lesson } from '~/utils/lessons-api';
 import { Markdown } from '~/components/Markdown';
-import PanelGroup from 'react-panelgroup';
+import { Header } from '~/components/Header';
+import clsx from 'clsx';
+import { usePathname } from 'next/navigation';
 
 type Props = {
   lessons: Lesson[];
   lesson: Lesson;
   user: Omit<User, 'id'>;
   courseSlug: string;
+  lessonIndex: number;
 };
 
 export const LessonPage: FC<Props> = ({
@@ -20,35 +23,30 @@ export const LessonPage: FC<Props> = ({
   lessons,
   user,
   courseSlug,
+  lessonIndex,
 }) => {
+  const pathname = usePathname();
+
   if (!user) {
     return null;
   }
+
   return (
-    <div className="h-full grid grid-rows-[56px,auto]">
-      <header className="flex items-center justify-between p-4 shadow">
-        <div>Dungeons & Dev</div>
-        <div>
-          <img
-            className="w-8 rounded-full"
-            alt={user.name || ''}
-            src={user.image || ''}
-          />
-          {/* @todo add hover menu to logout */}
-        </div>
-      </header>
-      <PanelGroup
-        borderColor="#0002"
-        panelWidths={[{ resize: 'dynamic' }, { resize: 'dynamic' }]}
-      >
+    <div className="h-full mx-auto grid gap-8 grid-rows-[64px,auto]">
+      <Header />
+      <div className="grid w-full grid-cols-[320px,auto] mx-auto max-w-7xl">
         <div className="w-full grid grid-rows-[auto,40px]">
-          <div>
-            <nav>
-              <ul className="striped">
+          <div className="relative px-4">
+            <nav className="sticky top-8">
+              <ul className="grid gap-2">
                 {lessons.map((lesson) => (
                   <li key={lesson.title}>
                     <Link
-                      className="block p-2 hover:bg-gray-200"
+                      className={clsx(
+                        'block p-2 border-b rounded hover:bg-neutral-100',
+                        pathname?.includes(String(lesson.data.slug)) &&
+                          'font-bold',
+                      )}
                       href={`/app/courses/${courseSlug}/${lesson.data.slug}`}
                     >
                       {lesson.title}
@@ -65,12 +63,8 @@ export const LessonPage: FC<Props> = ({
             Leave
           </Link>
         </div>
-        <PanelGroup
-          direction="column"
-          borderColor="#0002"
-          panelWidths={[{ resize: 'dynamic' }, { resize: 'dynamic' }]}
-        >
-          <div className="flex items-center justify-center w-full bg-black">
+        <div className="grid gap-8 px-4">
+          <div className="flex items-center justify-center w-full overflow-hidden bg-black rounded shadow-lg aspect-video">
             <ReactPlayer
               autoPlay
               muted
@@ -79,11 +73,39 @@ export const LessonPage: FC<Props> = ({
               url={lesson?.data?.video ?? ''}
             />
           </div>
-          <div className="grid gap-4 p-4 overflow-auto text-lg leading-relaxed">
+          <div className="grid gap-4 pb-4 overflow-auto text-lg leading-relaxed">
             <Markdown>{lesson?.content ?? ''}</Markdown>
           </div>
-        </PanelGroup>
-      </PanelGroup>
+          <div className="flex items-center justify-between pb-4">
+            {lessons[lessonIndex - 1] && (
+              <Link
+                href={`/app/courses/${courseSlug}/${
+                  lessons[lessonIndex - 1]!.data.slug
+                }`}
+                className="flex flex-col items-start justify-center p-4 border rounded"
+              >
+                <strong>Previous Lesson</strong>
+                <span className="text-sm">
+                  {lessons[lessonIndex - 1]!.data.title}
+                </span>
+              </Link>
+            )}
+            {lessonIndex < lessons.length - 1 && (
+              <Link
+                href={`/app/courses/${courseSlug}/${
+                  lessons[lessonIndex + 1]!.data.slug
+                }`}
+                className="flex flex-col items-start justify-center p-4 border rounded"
+              >
+                <strong>Next Lesson</strong>
+                <span className="text-sm">
+                  {lessons[lessonIndex + 1]!.data.title}
+                </span>
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
@@ -99,6 +121,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
     lessonSlug: params!.lessonSlug,
   });
   const session = await getServerSession(req, res, authOptions);
+  const lessonIndex = lessons.findIndex(
+    (lesson) => lesson.data.slug === params!.lessonSlug,
+  );
 
   if (!lesson) {
     return { notFound: true };
@@ -119,6 +144,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
       lesson,
       lessons,
       user: session?.user,
+      lessonIndex,
     },
   };
 };

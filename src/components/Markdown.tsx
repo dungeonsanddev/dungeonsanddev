@@ -9,6 +9,7 @@ import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json';
 import rangeParser from 'parse-numeric-range';
 
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { H1 } from './H1';
 
 SyntaxHighlighter.registerLanguage('tsx', tsx);
 SyntaxHighlighter.registerLanguage('typescript', typescript);
@@ -57,11 +58,14 @@ export const Markdown = ({ children }) => {
         <code className="p-1 text-white bg-gray-900 rounded">{children}</code>
       );
     },
-    h1: (props) => <h1 className="text-6xl font-bold" {...props} />,
-    h2: (props) => <h2 className="mt-4 text-4xl font-bold" {...props} />,
+    h1: (props) => <H1 {...props} />,
+    h2: (props) => (
+      <h2 className="mt-4 text-4xl font-bold font-cartridge" {...props} />
+    ),
     h3: (props) => <h3 className="mt-4 text-2xl font-bold" {...props} />,
     p: (props) => <p {...props} />,
-    ul: (props) => <ul className="ml-8 list-disc" {...props} />,
+    ul: (props) => <ul className="grid gap-2 ml-8 list-disc" {...props} />,
+    ol: (props) => <ol className="grid gap-2 ml-8 list-decimal" {...props} />,
   };
   return (
     <ReactMarkdown components={MarkdownComponents}>{children}</ReactMarkdown>

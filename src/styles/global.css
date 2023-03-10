@@ -113,12 +113,6 @@ img {
     1px -1px 1px #f736f9;
 }
 
-@layer utilities {
-  .striped li:nth-child(even) {
-    @apply bg-gray-100;
-  }
-}
-
 @font-face {
   font-family: 'Cartridge';
   font-weight: bold;
