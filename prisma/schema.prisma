@@ -13,22 +13,22 @@ generator client {
 enum CATEGORY {
   FRONTEND
   BACKEND
-  OPS
-  AFK
+  INFRA
+  TOOLS
 }
 
 model Author {
-  id             String   @id @default(uuid())
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @default(now()) @updatedAt
-  Course         Course[]
-  name           String
-  description    String
-  photo          String
-  link_twitter   String
-  link_website   String
-  link_mastadoon String
-  link_github    String
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
+  Course        Course[]
+  name          String
+  description   String
+  photo         String
+  link_twitter  String
+  link_website  String
+  link_mastodon String?
+  link_github   String
 }
 
 model Course {

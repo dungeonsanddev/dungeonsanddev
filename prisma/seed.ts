@@ -1,79 +1,45 @@
 import { PrismaClient, CATEGORY } from '@prisma/client';
-import { json } from 'stream/consumers';
 
 const prisma = new PrismaClient();
 
 async function main() {
   const exists = await prisma.course.findUnique({
     where: {
-      slug: 'best-course',
+      slug: 'git-basics',
     },
   });
   if (exists?.id) return;
   await prisma.course.create({
     data: {
-      name: 'This is the best course',
-      slug: 'best-course',
+      name: 'Git Basics',
+      slug: 'git-basics',
       media:
-        'https://upload.wikimedia.org/wikipedia/en/2/2d/SSU_Kirby_artwork.png',
-      description: `
-### Efficiens Baucis
+        'https://images.unsplash.com/photo-1556075798-4825dfaaf498?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1280&q=80',
+      description: `Git is a powerful version control system that is widely used by software developers around the world. In this course, you will learn the basics of Git and how to use it to manage your codebase.
 
-Lorem markdownum igne usum et adire huius consequiturque trepida puniceum
-parabat tamen; ardua! Nova regni vacant. Petiti poscimur: ictu coniunx, coniuge,
-et est **absens committi** protinus levis vel credite poteras dixit. Est sorores
-tigno moderamine agros: tenui, lymphis ex omnes Iovem Echidnae late, quod licet,
-poenam.
+The course includes the following topics:
 
-### Pallet qui regno inmanemque
+- Introduction to version control and Git
+- Git components: repository, branches, and commits
+- Installing and configuring Git
+- Creating a new Git repository and adding files to it
+- Making changes to files and committing them
+- Reverting changes and viewing history
+- Branching and merging
+- Resolving conflicts during merging
+- Advanced Git features: tagging and collaborating with remote repositories
 
-Est deserit saxa, mihi **atque ignarus quae** illa respiciens; placet, ego
-mundus. Suffusus non, deus aptius conchis ferrum et motumque viris [ferunt
-exegit et](http://mersitcupit.org/pocula) frustra *huc hospes* desertaque
-dumque. Et lapides et et deferre et stamine; in resupinoque velox Thebis super,
-habenas scelerate. Aonios amatam! *Bellum gemino Atlantide* unam anus his
-defensore tacito in legi Achaia prima, liquidarum *a*.
-
-### Qui potero forsitan ramis vosne omnia et
-
-Ityosque corpus, nec formae confinia iamque, vina cum, iter et conspicuus
-Athenas nempe; erroribus inferna et? Iustis genitore natat frena. Vocem plena
-urbem, Thyoneus audiat Propoetidas tibi: locis tot sidera ore. Minor sumptas
-clauditur.
-
-- Iuncta agitasse spectata discedens altaria refers postquam
-- Oculos prima visi laedere ipsi Iove fervida
-- Dapes tergo haec Theseus thalamos Cnosius Ilion
-
-### Admonuisse non fertur et nec auspiciis triste
-
-Quid resurgebant vidisti colla Tydidae veni: ortus ante pedes: erat: populo et
-canebat labore audebatis genitor, pectus. Annos toros, in ille aut loqueretur
-iubent **rapta**, gaudet! Et ante [unguibus](http://www.coniuge.io/) mittere,
-iussorum vitiaverat vobis placato. Occupat dixit. Est mora [tres Achaemenide
-campi](http://sum.net/quinta.html).
-
-\`\`\`js
-console.log("sup")
-\`\`\`
-
-Avidos fit videntem Cadmi. Novissima quod iam consumitis, est dux imitataque
-materiam [induta](http://pariterque.com/esse-quod.html) vitisque: carbasa
-minister non agricolis nisi meae aras inicere? Haec Parnasosque **urbe
-praebentque** coniunx tectus atris ut plura funera erat digitis monticolae minus
-Dulichius.
-      `,
-      category: CATEGORY.FRONTEND,
+By the end of this course, you will have a solid understanding of Git basics and be able to use Git to manage your code effectively. You will be able to create and manage repositories, work with branches and commits, resolve conflicts, and collaborate with others using Git.`,
+      category: CATEGORY.TOOLS,
       language: 'EN',
       author: {
         create: {
-          name: 'Respecatble human',
+          name: 'ChatGPT',
           photo: 'https://thispersondoesnotexist.com/image',
-          description: 'I am a professor, yes',
+          description: 'Legit just an AI :D',
           link_github: 'https://github.com/axodotdev',
-          link_mastadoon: 'https://tech.lgbt/@nikkitaFTW',
-          link_twitter: 'https://twitter.com/NikkitaFTW',
-          link_website: 'https://example.com',
+          link_twitter: 'https://twitter.com/openai',
+          link_website: 'https://chat.openai.com',
         },
       },
     },
