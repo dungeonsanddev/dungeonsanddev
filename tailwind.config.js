@@ -11,13 +11,14 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
-        cartridge: ["Cartridge"],
+        cartridge: ['Cartridge'],
       },
       fontSize: {
         front: '10rem',
       },
       colors: {
         grass: '#63c74d',
+        logoGreen: '#255827',
       },
     },
   },
