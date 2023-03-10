@@ -9,7 +9,7 @@ export const H1: FC<PropsWithChildren<{ className?: string }>> = ({
     <h1
       className={clsx(
         className,
-        'leading-none tracking-tighter text-7xl font-cartridge md:text-front',
+        'leading-none tracking-tighter text-4xl font-cartridge text-slate-800',
       )}
     >
       {children}
