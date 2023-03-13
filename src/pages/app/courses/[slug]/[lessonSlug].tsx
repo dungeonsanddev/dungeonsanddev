@@ -64,7 +64,7 @@ export const LessonPage: FC<Props> = ({
           </Link>
         </div>
         <div className="grid gap-8 px-4">
-          <div className="flex items-center justify-center w-full overflow-hidden bg-black rounded shadow-lg aspect-video">
+          <div className="sticky top-4 flex resize items-center justify-center w-full overflow-hidden bg-black rounded shadow-lg -left-[50%] aspect-video">
             <ReactPlayer
               autoPlay
               muted
