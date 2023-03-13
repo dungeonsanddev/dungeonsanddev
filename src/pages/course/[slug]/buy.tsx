@@ -31,6 +31,16 @@ const BuyCourse = ({ course, user }) => {
 
 export const getServerSideProps = async (ctx) => {
   const session = await getServerSession(ctx.req, ctx.res, authOptions);
+
+  if (!session?.user) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
   const course = await prisma.course.findFirst({
     where: {
       slug: ctx.params.slug,
