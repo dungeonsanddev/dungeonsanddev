@@ -7,6 +7,7 @@ import type { AppType } from 'next/app';
 import { trpc } from '../utils/trpc';
 import { SessionProvider } from 'next-auth/react';
 import '../styles/global.css';
+import { Toaster } from 'react-hot-toast';
 
 export type NextPageWithLayout = NextPage & {
   layout?: ReactNode;
@@ -30,6 +31,7 @@ const App = (({ Component, pageProps }: AppPropsWithLayout) => {
   return (
     <Layout>
       <Component {...pageProps} />
+      <Toaster />
     </Layout>
   );
 }) as AppType;

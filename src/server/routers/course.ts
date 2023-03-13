@@ -4,6 +4,25 @@ import { z } from 'zod';
 import { prisma } from '~/server/prisma';
 
 export const courseRouter = router({
+  buy: publicProcedure
+    .input(
+      z.object({
+        courseid: z.string(),
+        userid: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const { courseid, userid } = input;
+
+      const buyCourse = await prisma.userCourse.create({
+        data: {
+          userId: userid,
+          courseId: courseid,
+        },
+      });
+
+      return buyCourse;
+    }),
   all: publicProcedure.query(async () => {
     const items = await prisma.course.findMany({
       include: {
