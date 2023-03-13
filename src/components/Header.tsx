@@ -15,7 +15,10 @@ export const Header = () => {
   const session = useSession();
 
   return (
-    <Disclosure as="nav" className="bg-white border-b border-neutral-200">
+    <Disclosure
+      as="nav"
+      className="bg-white border-b border-neutral-200 overflow-hidden"
+    >
       {({ open }) => (
         <>
           <div className="px-2 mx-auto max-w-7xl sm:px-6 lg:px-8">

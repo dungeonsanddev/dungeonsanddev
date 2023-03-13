@@ -1,6 +1,13 @@
 import classNames from 'classnames';
 
-export const FancyButton = ({ children, onClick, className }) => {
+type Props = {
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+  loading?: boolean;
+};
+
+export const FancyButton = ({ children, onClick, className }: Props) => {
   return (
     <button
       className={classNames(
