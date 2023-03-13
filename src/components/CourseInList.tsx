@@ -16,11 +16,11 @@ export const CourseInList = ({
     <div
       key={course.id}
       className={clsx(
-        'max-w-3xl mx-auto flex flex-col',
-        index % 4 ? ' items-end' : 'items-start',
+        'mx-auto flex flex-col w-full',
+        index % 2 ? ' items-end' : 'items-start',
       )}
     >
-      <H1 className="font-cartdrige font-bold">{course.name}</H1>
+      <H1 className="font-bold font-cartdrige">{course.name}</H1>
       <p className="text-sm text-slate-600">
         By{' '}
         <Link
@@ -36,19 +36,19 @@ export const CourseInList = ({
       <div
         className={clsx(
           'mt-8 flex items-start gap-8',
-          index % 4 && 'flex-row-reverse ',
+          index % 2 && 'flex-row-reverse ',
         )}
       >
         <div className="grow shrink-0">
           <img
-            className="shrink-0 rounded-md"
+            className="rounded-md shrink-0"
             src={course.media}
             alt={course.name}
             width="300px"
           />
           <Link
             href={`course/${course.slug}`}
-            className=" mt-4 w-full inline-flex justify-center items-center gap-x-2 rounded-md bg-yellow-500 py-2.5 px-3.5 text-sm font-semibold text-gray-700 shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500"
+            className=" mt-4 w-full inline-flex justify-center items-center gap-x-2 rounded-md bg-yellow-500 py-2.5 text-sm font-semibold text-gray-700 shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500"
           >
             Get course
             <ChevronDoubleRightIcon
