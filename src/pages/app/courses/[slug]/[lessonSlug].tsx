@@ -170,7 +170,6 @@ export const getServerSideProps: GetServerSideProps = async ({
     },
   });
 
-  console.log(userCourse);
 
   return {
     props: {
