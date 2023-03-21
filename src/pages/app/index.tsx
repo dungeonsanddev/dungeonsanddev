@@ -136,7 +136,7 @@ const App: FC<Props> = ({ userCourses, recommendedCourses }) => {
                         </Button>
                       </Link>
                     ) : (
-                      <Link href={`/courses/${userCourse.course.slug}/buy`}>
+                      <Link href={`/course/${userCourse.course.slug}/buy`}>
                         <Button>Buy Course</Button>
                       </Link>
                     )}
