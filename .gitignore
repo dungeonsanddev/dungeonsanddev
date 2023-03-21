@@ -38,3 +38,4 @@ prisma/_sqlite/migrations
 # cache
 .eslintcache
 
+package-lock.json
