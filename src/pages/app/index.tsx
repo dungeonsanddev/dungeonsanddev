@@ -127,9 +127,13 @@ const App: FC<Props> = ({ userCourses, recommendedCourses }) => {
                     </div>
                     {userCourses[index] ? (
                       <Link
-                        href={`/app/courses/${userCourses[index]!.course.slug}`}
+                        href={`/app/courses/${userCourses[index]?.course.slug}`}
                       >
-                        <Button>Dive in!</Button>
+                        <Button>
+                          {userCourses[index]?.progress
+                            ? 'Continue'
+                            : 'Dive in!'}
+                        </Button>
                       </Link>
                     ) : (
                       <Link href={`/courses/${userCourse.course.slug}/buy`}>

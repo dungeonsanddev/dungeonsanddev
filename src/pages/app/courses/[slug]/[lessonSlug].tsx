@@ -105,26 +105,26 @@ export const LessonPage: FC<Props> = ({
             {lessons[lessonIndex - 1] && (
               <Link
                 href={`/app/courses/${courseSlug}/${
-                  lessons[lessonIndex - 1]!.data.slug
+                  lessons[lessonIndex - 1]?.data.slug
                 }`}
                 className="flex flex-col items-start justify-center p-4 border rounded"
               >
                 <strong>Previous Lesson</strong>
                 <span className="text-sm">
-                  {lessons[lessonIndex - 1]!.data.title}
+                  {lessons[lessonIndex - 1]?.data.title}
                 </span>
               </Link>
             )}
             {lessonIndex < lessons.length - 1 && (
               <Link
                 href={`/app/courses/${courseSlug}/${
-                  lessons[lessonIndex + 1]!.data.slug
+                  lessons[lessonIndex + 1]?.data.slug
                 }`}
                 className="flex flex-col items-start justify-center p-4 border rounded"
               >
                 <strong>Next Lesson</strong>
                 <span className="text-sm">
-                  {lessons[lessonIndex + 1]!.data.title}
+                  {lessons[lessonIndex + 1]?.data.title}
                 </span>
               </Link>
             )}
@@ -140,14 +140,14 @@ export const getServerSideProps: GetServerSideProps = async ({
   req,
   res,
 }) => {
-  const { lessons } = await getLessons({ slug: params!.slug });
+  const { lessons } = await getLessons({ slug: params?.slug });
   const { lesson } = await getLesson({
-    slug: params!.slug,
-    lessonSlug: params!.lessonSlug,
+    slug: params?.slug,
+    lessonSlug: params?.lessonSlug,
   });
   const session = await getServerSession(req, res, authOptions);
   const lessonIndex = lessons.findIndex(
-    (lesson) => lesson.data.slug === params!.lessonSlug,
+    (lesson) => lesson.data.slug === params?.lessonSlug,
   );
 
   if (!lesson) {
@@ -166,7 +166,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   const userCourse = await prisma.userCourse.findFirst({
     where: {
       user: { email: session?.user?.email as string },
-      course: { slug: params!.slug as string },
+      course: { slug: params?.slug as string },
     },
   });
 
@@ -174,7 +174,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
-      courseSlug: params!.slug as string,
+      courseSlug: params?.slug as string,
       lesson,
       lessons,
       user: session?.user,
