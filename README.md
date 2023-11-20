@@ -6,6 +6,7 @@ A starter for NextJS fullstack projects with all you need to start your side pro
 
 ## Features
 
+
 - 📡 API using [tRPC](https://trpc.io)
 - 📦 Database with [Prisma](https://www.prisma.io/) & Postgres
 - 👾 Very lenient [Typescript](https://www.typescriptlang.org/) configuration (this is by design)
