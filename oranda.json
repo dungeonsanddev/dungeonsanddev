@@ -1,0 +1,25 @@
+{
+  "styles": {
+    "theme": "dark"
+  },
+  "components": {
+    "mdbook": {
+      "theme": true
+    },
+    "changelog": false,
+    "funding": {
+      "yml_path": ".github/FUNDING.yml"
+    }
+  },
+  "build": {
+    "dist_dir": "./public/",
+    "static_dir": "./static/",
+    "path_prefix": "dungeonsanddev"
+  },
+  "project": {
+    "name": "dungeonsanddev",
+    "repository": "https://github.com/dungeonsanddev/dungeonsanddev",
+    "homepage": "https://dungeons-dev.netlify.app/",
+    "readme_path": "./README.md"
+  }
+}
