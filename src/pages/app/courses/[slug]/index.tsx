@@ -44,7 +44,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
   const { lessons } = await getLessons({ slug: params!.slug });
   const { lesson } = await getLesson({
     slug: params!.slug,
-    lessonSlug: lessons[0]?.data.slug,
+    lessonSlug: lessons[userCourse.progress || 0]?.data.slug,
   });
 
   if (!lesson) {

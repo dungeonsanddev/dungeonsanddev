@@ -23,6 +23,28 @@ export const courseRouter = router({
 
       return buyCourse;
     }),
+  updateProgress: publicProcedure
+    .input(
+      z.object({
+        progress: z.number(),
+        id: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const { progress, id } = input;
+
+      const progressUpdated = await prisma.userCourse.update({
+        where: {
+          id,
+        },
+        data: {
+          progress
+        },
+      });
+
+      return progressUpdated;
+    }),
+
   all: publicProcedure.query(async () => {
     const items = await prisma.course.findMany({
       include: {
@@ -54,6 +76,22 @@ export const courseRouter = router({
           message: `No course with id '${slug}'`,
         });
       }
+      return post;
+    }),
+  progress: publicProcedure
+    .input(
+      z.object({
+        id: z.string(),
+      }),
+    )
+    .query(async ({ input }) => {
+      const { id } = input;
+      const post = await prisma.userCourse.findFirst({
+        where: { id },
+        select: {
+          progress: true,
+        }
+      });
       return post;
     }),
 });

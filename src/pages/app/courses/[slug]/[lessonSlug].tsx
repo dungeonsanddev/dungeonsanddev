@@ -9,6 +9,9 @@ import { Markdown } from '~/components/Markdown';
 import { Header } from '~/components/Header';
 import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
+import { prisma } from '~/server/prisma';
+import { trpc } from '~/utils/trpc';
+import { CheckCircleIcon } from '@heroicons/react/24/solid';
 
 type Props = {
   lessons: Lesson[];
@@ -16,6 +19,7 @@ type Props = {
   user: Omit<User, 'id'>;
   courseSlug: string;
   lessonIndex: number;
+  userCourseID: string;
 };
 
 export const LessonPage: FC<Props> = ({
@@ -24,8 +28,18 @@ export const LessonPage: FC<Props> = ({
   user,
   courseSlug,
   lessonIndex,
+  userCourseID,
 }) => {
   const pathname = usePathname();
+  const utils = trpc.useContext();
+  const { data: progressData } = trpc.course.progress.useQuery({
+    id: userCourseID,
+  });
+  const { mutateAsync } = trpc.course.updateProgress.useMutation({
+    onSuccess: () => {
+      utils.course.progress.invalidate({ id: userCourseID });
+    },
+  });
 
   if (!user) {
     return null;
@@ -39,17 +53,22 @@ export const LessonPage: FC<Props> = ({
           <div className="relative px-4">
             <nav className="sticky top-8">
               <ul className="grid gap-2">
-                {lessons.map((lesson) => (
+                {lessons.map((lesson, i) => (
                   <li key={lesson.title}>
                     <Link
                       className={clsx(
-                        'block p-2 border-b rounded hover:bg-neutral-100',
+                        'items-center gap-2 p-2 border-b rounded hover:bg-neutral-100 flex',
                         pathname?.includes(String(lesson.data.slug)) &&
                           'font-bold',
+                        i < (progressData?.progress || 0) &&
+                          'text-green-600 opacity-90',
                       )}
                       href={`/app/courses/${courseSlug}/${lesson.data.slug}`}
                     >
                       {lesson.title}
+                      {i < (progressData?.progress || 0) && (
+                        <CheckCircleIcon className="w-5 h-5 text-green-600" />
+                      )}
                     </Link>
                   </li>
                 ))}
@@ -66,11 +85,17 @@ export const LessonPage: FC<Props> = ({
         <div className="grid gap-8 px-4">
           <div className="sticky top-4 flex resize items-center justify-center w-full overflow-hidden bg-black rounded shadow-lg -left-[50%] aspect-video">
             <ReactPlayer
-              autoPlay
+              onEnded={() =>
+                mutateAsync({
+                  progress: lessonIndex + 1,
+                  id: userCourseID,
+                })
+              }
               muted
               width="100%"
               height="100%"
               url={lesson?.data?.video ?? ''}
+              controls={true}
             />
           </div>
           <div className="grid gap-4 pb-4 overflow-auto text-lg leading-relaxed">
@@ -80,26 +105,26 @@ export const LessonPage: FC<Props> = ({
             {lessons[lessonIndex - 1] && (
               <Link
                 href={`/app/courses/${courseSlug}/${
-                  lessons[lessonIndex - 1]!.data.slug
+                  lessons[lessonIndex - 1]?.data.slug
                 }`}
                 className="flex flex-col items-start justify-center p-4 border rounded"
               >
                 <strong>Previous Lesson</strong>
                 <span className="text-sm">
-                  {lessons[lessonIndex - 1]!.data.title}
+                  {lessons[lessonIndex - 1]?.data.title}
                 </span>
               </Link>
             )}
             {lessonIndex < lessons.length - 1 && (
               <Link
                 href={`/app/courses/${courseSlug}/${
-                  lessons[lessonIndex + 1]!.data.slug
+                  lessons[lessonIndex + 1]?.data.slug
                 }`}
                 className="flex flex-col items-start justify-center p-4 border rounded"
               >
                 <strong>Next Lesson</strong>
                 <span className="text-sm">
-                  {lessons[lessonIndex + 1]!.data.title}
+                  {lessons[lessonIndex + 1]?.data.title}
                 </span>
               </Link>
             )}
@@ -110,19 +135,19 @@ export const LessonPage: FC<Props> = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async ({
+export const getServerSideProps: GetServerSideProps = async ({
   params,
   req,
   res,
 }) => {
-  const { lessons } = await getLessons({ slug: params!.slug });
+  const { lessons } = await getLessons({ slug: params?.slug });
   const { lesson } = await getLesson({
-    slug: params!.slug,
-    lessonSlug: params!.lessonSlug,
+    slug: params?.slug,
+    lessonSlug: params?.lessonSlug,
   });
   const session = await getServerSession(req, res, authOptions);
   const lessonIndex = lessons.findIndex(
-    (lesson) => lesson.data.slug === params!.lessonSlug,
+    (lesson) => lesson.data.slug === params?.lessonSlug,
   );
 
   if (!lesson) {
@@ -138,13 +163,22 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({
     };
   }
 
+  const userCourse = await prisma.userCourse.findFirst({
+    where: {
+      user: { email: session?.user?.email as string },
+      course: { slug: params?.slug as string },
+    },
+  });
+
+
   return {
     props: {
-      courseSlug: params!.slug as string,
+      courseSlug: params?.slug as string,
       lesson,
       lessons,
       user: session?.user,
       lessonIndex,
+      userCourseID: userCourse?.id,
     },
   };
 };
